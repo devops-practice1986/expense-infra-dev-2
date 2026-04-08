@@ -267,7 +267,6 @@ resource "aws_security_group_rule" "app_alb_vpn" { # vpn to app_alb
 }
 
 # connects backend from vpn
-
 resource "aws_security_group_rule" "backend_vpn" { # vpn to backend
   type                     = "ingress"
   from_port                = 22
@@ -313,7 +312,7 @@ resource "aws_security_group_rule" "frontend_vpn" {
   security_group_id = module.frontend_sg.id
 }
 
-resource "aws_security_group_rule" "frontend_app_alb" {
+resource "aws_security_group_rule" "frontend_web_alb" {
   type              = "ingress"
   from_port         = 80
   to_port           = 80
