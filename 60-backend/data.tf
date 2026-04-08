@@ -7,11 +7,18 @@ data "aws_ssm_parameter" "private_subnet_ids" {
   #/expense/dev/private_subnet_ids
   name = "/${var.project_name}/${var.environment}/private_subnet_ids"
 }
+data "aws_ssm_parameter" "vpc_id" {
+  #/expense/dev/vpc_id
+  name = "/${var.project_name}/${var.environment}/vpc_id"
+}
 
+data "aws_ssm_parameter" "app_alb_listener_arn" {
+  #/expense/dev/app_alb_listener_arn
+  name = "/${var.project_name}/${var.environment}/app_alb_listener_arn"
+}
 data "aws_ami" "inspiredevops" {
   most_recent = true
   owners      = ["973714476881"]
-
   filter {
     name   = "name"
     values = ["Redhat-9-DevOps-Practice*"]
@@ -22,3 +29,7 @@ data "aws_ami" "inspiredevops" {
     values = ["hvm"]
   }
 }
+
+
+
+
