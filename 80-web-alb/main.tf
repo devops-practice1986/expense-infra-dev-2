@@ -58,11 +58,11 @@ module "route53_records" {
   zone_name = var.zone_name
   records = [
     {
-      name    = "expense-${var.environment}" # expense-dev.inspiredevops.online
-      type    = "CNAME"
-      ttl     = 1
-      records = [tostring(module.web_alb.dns_name)]
-      # zone_id         = [tostring(module.web_alb.zone_id)]
+      name            = "expense-${var.environment}" # expense-dev.inspiredevops.online
+      type            = "CNAME"
+      ttl             = 1
+      records         = [tostring(module.web_alb.dns_name)]
+      zone_id         = [tostring(module.web_alb.zone_id)]
       allow_overwrite = true
     },
   ]

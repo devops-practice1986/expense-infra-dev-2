@@ -9,10 +9,3 @@ ansible-pull -i localhost, -U https://github.com/devops-practice1986/expense-ans
 # terraform taint null_resource.backend
 
 
-# #!/bin/bash
-
-# component=$1
-# environment=$2
-# echo "Component: $component, Environment: $environment"
-# dnf install ansible -y
-# ansible-pull -i localhost, -U https://github.com/devops-practice1986/expense-ansible-roles-tf.git main.yaml -e component=$component -e environment=$environment
