@@ -112,14 +112,14 @@ resource "aws_security_group_rule" "mysql_backend" {
 
 #*********************RULES FOR BASTION*************************
 # for employee purpose to connect to the servers
-resource "aws_security_group_rule" "mysql_bastion" {
-  type                     = "ingress"
-  from_port                = 22
-  to_port                  = 22
-  protocol                 = "tcp"
-  source_security_group_id = module.bastion_sg.id # this is link from mysql to backend # this is link from mysql to backend
-  security_group_id        = module.mysql_sg.id   # enter the rule into frontend}
-}
+# resource "aws_security_group_rule" "mysql_bastion" {
+#   type                     = "ingress"
+#   from_port                = 22
+#   to_port                  = 22
+#   protocol                 = "tcp"
+#   source_security_group_id = module.bastion_sg.id # this is link from mysql to backend # this is link from mysql to backend
+#   security_group_id        = module.mysql_sg.id   # enter the rule into frontend}
+# }
 
 resource "aws_security_group_rule" "mysql_bastion" {
   type                     = "ingress"
