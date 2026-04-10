@@ -7,3 +7,4 @@ dnf install ansible -y
 ansible-pull -i localhost, -U https://github.com/devops-practice1986/expense-ansible-roles-tf.git main.yaml -e component=$component -e environment=$environment
 
 # terraform taint null_resource.backend
+

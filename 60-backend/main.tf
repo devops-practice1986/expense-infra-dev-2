@@ -76,6 +76,7 @@ resource "aws_lb_target_group" "backend" {
   port     = 8080
   protocol = "HTTP"
   vpc_id   = local.vpc_id
+
   health_check {
     healthy_threshold   = 2
     unhealthy_threshold = 2
@@ -97,8 +98,10 @@ resource "aws_launch_template" "backend" {
 
   update_default_version = true
   vpc_security_group_ids = [local.backend_sg_id]
+
   tag_specifications {
     resource_type = "instance"
+
     tags = {
       Name = local.resource_name
     }
@@ -148,8 +151,9 @@ resource "aws_autoscaling_group" "backend" {
 
 resource "aws_autoscaling_policy" "backend" {
   name                   = local.resource_name
+   policy_type            = "TargetTrackingScaling"
   autoscaling_group_name = aws_autoscaling_group.backend.name
-  policy_type            = "TargetTrackingScaling"
+ 
   target_tracking_configuration {
     predefined_metric_specification {
       predefined_metric_type = "ASGAverageCPUUtilization"

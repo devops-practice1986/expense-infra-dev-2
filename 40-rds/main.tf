@@ -9,9 +9,9 @@ module "db" {
   allocated_storage = 5
 
   db_name                     = "transactions"
-  username                    = var.user_name
+  username                    = "root"
   manage_master_user_password = false
-  password_wo                 = var.password
+  password_wo                 = "ExpenseApp1"
   password_wo_version         = 1
   port                        = "3306"
 
@@ -45,7 +45,7 @@ module "db" {
     }
   ]
 
-  # bellow re default values
+  # bellow are default values
   options = [
     {
       option_name = "MARIADB_AUDIT_PLUGIN"
@@ -75,13 +75,12 @@ module "route53_records" {
   zone_name = var.zone_name
   records = [
     {
-      name    = "mysql-${var.environment}"
-      type    = "CNAME"
-      ttl     = 1
-      records = [tostring(module.db.db_instance_address)]
+      name            = "mysql-${var.environment}" # mysql-dev.inspiredevops.online
+      type            = "CNAME"
+      ttl             = 1
+      records         = [tostring(module.db.db_instance_address)]
       allow_overwrite = true
     },
-        
+
   ]
-  
 }

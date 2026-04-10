@@ -52,18 +52,36 @@ resource "aws_lb_listener" "https" {
 }
 
 # Route 53 record for Web_alb
-module "route53_records" {
-  source    = "terraform-aws-modules/route53/aws//modules/records"
-  version   = "~> 2.0" # or a specific version
-  zone_name = var.zone_name
+# module "route53_records" {
+#   source    = "terraform-aws-modules/route53/aws//modules/records"
+#   version   = "~> 2.0" # or a specific version
+#   zone_name = var.zone_name
+#   records = [
+#     {
+#       name            = "expense-${var.environment}" # expense-dev.inspiredevops.online
+#       type            = "CNAME"
+#       ttl             = 1
+#       records         = [tostring(module.web_alb.dns_name)]
+#       zone_id         = [tostring(module.web_alb.zone_id)]
+#       allow_overwrite = true
+#     },
+#   ]
+# }
+
+
+module "records" {
+  source = "terraform-aws-modules/route53/aws//modules/records"
+
+  zone_name = var.zone_name #daws81s.online
   records = [
     {
-      name            = "expense-${var.environment}" # expense-dev.inspiredevops.online
-      type            = "CNAME"
-      ttl             = 1
-      records         = [tostring(module.web_alb.dns_name)]
-      zone_id         = [tostring(module.web_alb.zone_id)]
+      name = "expense-${var.environment}" # *.app-dev
+      type = "A"
+      alias = {
+        name    = module.web_alb.dns_name
+        zone_id = module.web_alb.zone_id # This belongs ALB internal hosted zone, not ours
+      }
       allow_overwrite = true
-    },
+    }
   ]
 }

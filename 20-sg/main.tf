@@ -14,7 +14,7 @@ module "backend_sg" {
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "backend"
-  vpc_id       = local.value
+  vpc_id       = local.vpc_id
   common_tags  = var.common_tags
   sg_tags      = var.backend_sg_tags
 }
@@ -24,7 +24,7 @@ module "frontend_sg" {
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "frontend"
-  vpc_id       = local.value
+  vpc_id       = local.vpc_id
   common_tags  = var.common_tags
   sg_tags      = var.frontend_sg_tags
 }
@@ -34,7 +34,7 @@ module "bastion_sg" {
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "bastion"
-  vpc_id       = local.value
+  vpc_id       = local.vpc_id
   common_tags  = var.common_tags
   sg_tags      = var.bastion_sg_tags
 }
@@ -44,7 +44,7 @@ module "ansible_sg" {
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "ansible"
-  vpc_id       = local.value
+  vpc_id       = local.vpc_id
   common_tags  = var.common_tags
   sg_tags      = var.ansible_sg_tags
 }
@@ -53,8 +53,8 @@ module "app_alb_sg" {
   source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group-module.git?ref=main"
   project_name = var.project_name
   environment  = var.environment
-  sg_name      = "app_alb"
-  vpc_id       = local.value
+  sg_name      = "app_alb"#expense-dev-app-alb
+  vpc_id       = local.vpc_id
   common_tags  = var.common_tags
   sg_tags      = var.app_alb_sg_tags
 }
@@ -63,8 +63,8 @@ module "web_alb_sg" {
   source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group-module.git?ref=main"
   project_name = var.project_name
   environment  = var.environment
-  sg_name      = "web_alb"
-  vpc_id       = local.value
+  sg_name      = "web_alb" #expense-dev-app-alb
+  vpc_id       = local.vpc_id
   common_tags  = var.common_tags
   sg_tags      = var.web_alb_sg_tags
 }
@@ -74,9 +74,10 @@ module "vpn_sg" {
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "vpn"
-  vpc_id       = local.value
+  vpc_id       = local.vpc_id
   common_tags  = var.common_tags
 }
+
 # ******************THESE ARE SG RULES*******************************
 # Seurity group rules to mysql on 3306
 # MySql allowing connection on 3306 from the instances attached to backend SG
@@ -111,16 +112,6 @@ resource "aws_security_group_rule" "mysql_backend" {
 # }
 
 #*********************RULES FOR BASTION*************************
-# for employee purpose to connect to the servers
-# resource "aws_security_group_rule" "mysql_bastion" {
-#   type                     = "ingress"
-#   from_port                = 22
-#   to_port                  = 22
-#   protocol                 = "tcp"
-#   source_security_group_id = module.bastion_sg.id # this is link from mysql to backend # this is link from mysql to backend
-#   security_group_id        = module.mysql_sg.id   # enter the rule into frontend}
-# }
-
 resource "aws_security_group_rule" "mysql_bastion" {
   type                     = "ingress"
   from_port                = 3306

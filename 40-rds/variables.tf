@@ -19,14 +19,7 @@ variable "rds_tags" {
     Componet = "rds"
   }
 }
- variable "user_name"{
-  default = "root"
- }
- variable"password"{
-  default = "ExpenseApp1"
- }
 
- 
-variable "zone_name"{
+variable "zone_name" {
   default = "inspiredevops.online"
 }

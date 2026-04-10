@@ -19,14 +19,6 @@ variable "app_alb_tags" {
     Componet = "app_alb"
   }
 }
- variable "user_name"{
-  default = "root"
- }
- variable"password"{
-  default = "ExpenseApp1"
- }
-
- 
-variable "zone_name"{
+variable "zone_name" {
   default = "inspiredevops.online"
 }
