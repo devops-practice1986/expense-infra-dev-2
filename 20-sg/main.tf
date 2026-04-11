@@ -4,7 +4,7 @@ module "mysql_sg" {
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "mysql"
-  vpc_id       = local.value
+  vpc_id       = local.vpc_id
   common_tags  = var.common_tags
   sg_tags      = var.mysql_sg_tags
 }
@@ -53,7 +53,7 @@ module "app_alb_sg" {
   source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group-module.git?ref=main"
   project_name = var.project_name
   environment  = var.environment
-  sg_name      = "app_alb"#expense-dev-app-alb
+  sg_name      = "app_alb" #expense-dev-app-alb
   vpc_id       = local.vpc_id
   common_tags  = var.common_tags
   sg_tags      = var.app_alb_sg_tags

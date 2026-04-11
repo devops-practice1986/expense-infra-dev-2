@@ -67,20 +67,39 @@ module "db" {
 #for i in $(ls -dr */) ; do echo ${i%/}; cd ${i%/}; terraform destroy -auto-approve ; cd .. ; done
 
 #for i in $(ls -d */) ; do echo ${i%/}; cd ${i%/}; terraform apply -auto-approve ; cd .. ; done
-
-module "route53_records" {
-  source  = "terraform-aws-modules/route53/aws//modules/records"
-  version = "~> 2.0" # or a specific version
-
+module "records" {
+  source    = "terraform-aws-modules/route53/aws//modules/records"
+  version   = "~> 2.0" # or a specific version
   zone_name = var.zone_name
+
   records = [
+
     {
-      name            = "mysql-${var.environment}" # mysql-dev.inspiredevops.online
-      type            = "CNAME"
-      ttl             = 1
-      records         = [tostring(module.db.db_instance_address)]
+      name = "mysql-${var.environment}" #mysql-dev.inspiredevops.online
+      type = "CNAME"
+      ttl  = 1
+      records = [
+        module.db.db_instance_address
+      ]
       allow_overwrite = true
     },
-
   ]
+
 }
+
+# module "route53_records" {
+#   source  = "terraform-aws-modules/route53/aws//modules/records"
+#   version = "~> 2.0" # or a specific version
+
+#   zone_name = var.zone_name
+#   records = [
+#     {
+#       name            = "mysql-${var.environment}" # mysql-dev.inspiredevops.online
+#       type            = "CNAME"
+#       ttl             = 1
+#       records         = [tostring(module.db.db_instance_address)]
+#       allow_overwrite = true
+#     },
+
+#   ]
+# }
