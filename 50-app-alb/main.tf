@@ -30,22 +30,6 @@ resource "aws_lb_listener" "http" {
     }
   }
 }
-# Route 53 record for App_alb
-# module "records" {
-#   source    = "terraform-aws-modules/route53/aws//modules/records"
-#   version   = "~> 2.0" # or a specific version
-#   zone_name = var.zone_name
-#   records = [
-#     {
-#       name            = "*.app-${var.environment}" # *.app-dev.inspiredevops.online
-#       type            = "CNAME"
-#       ttl             = 1
-#       records         = [tostring(module.app_alb.dns_name)]
-#       zone_id         = [tostring(module.app_alb.zone_id)]
-#       allow_overwrite = true
-#     },
-#   ]
-# }
 
 module "records" {
   source    = "terraform-aws-modules/route53/aws//modules/records"

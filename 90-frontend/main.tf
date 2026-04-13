@@ -32,6 +32,7 @@ resource "null_resource" "frontend" {
   }
 
   provisioner "file" {
+
     source      = "${var.frontend_tags.Component}.sh"
     destination = "/tmp/frontend.sh"
   }
@@ -39,11 +40,11 @@ resource "null_resource" "frontend" {
   provisioner "remote-exec" {
     # Bootstrap script called with private_ip of each node in the cluster
     inline = [
+      "sleep 60",
       "chmod +x /tmp/frontend.sh",
       "sudo sh /tmp/frontend.sh ${var.frontend_tags.Component} ${var.environment}"
     ]
   }
-
 
 }
 
