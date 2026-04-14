@@ -1,6 +1,6 @@
 
 module "mysql_sg" {
-  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group.git?ref=main"
+  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group-module.git?ref=main"
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "mysql"
@@ -10,7 +10,7 @@ module "mysql_sg" {
 }
 
 module "backend_sg" {
-  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group.git?ref=main"
+  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group-module.git?ref=main"
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "backend"
@@ -20,7 +20,7 @@ module "backend_sg" {
 }
 
 module "frontend_sg" {
-  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group.git?ref=main"
+  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group-module.git?ref=main"
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "frontend"
@@ -30,7 +30,7 @@ module "frontend_sg" {
 }
 
 module "bastion_sg" {
-  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group.git?ref=main"
+  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group-module.git?ref=main"
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "bastion"
@@ -40,7 +40,7 @@ module "bastion_sg" {
 }
 
 module "ansible_sg" {
-  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group.git?ref=main"
+  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group-module.git?ref=main"
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "ansible"
@@ -51,7 +51,7 @@ module "ansible_sg" {
 
 
 module "app_alb_sg" {
-  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group.git?ref=main"
+  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group-module.git?ref=main"
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "app-alb" #expense-dev-app-alb
@@ -61,7 +61,7 @@ module "app_alb_sg" {
 }
 
 module "web_alb_sg" {
-  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group.git?ref=main"
+  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group-module.git?ref=main"
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "web-alb" #expense-dev-app-alb
@@ -71,7 +71,7 @@ module "web_alb_sg" {
 }
 
 module "vpn_sg" {
-  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group.git?ref=main"
+  source       = "git::https://github.com/devops-practice1986/terraform-aws-security-group-module.git?ref=main"
   project_name = var.project_name
   environment  = var.environment
   sg_name      = "vpn" #expense-dev-app-alb
