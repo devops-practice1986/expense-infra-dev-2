@@ -11,7 +11,9 @@ data "aws_ssm_parameter" "public_subnet_ids" {
 data "aws_ami" "inspiredevops" {
   most_recent = true
   #owners      = ["973714476881"]
+  
   owners = ["679593333241"]
+
   filter {
     name   = "name"
     values = ["OpenVPN Access Server Community Image-fe8020db-*"]

@@ -1,21 +1,18 @@
 module "web_alb" {
-  source   = "terraform-aws-modules/alb/aws"
-  internal = false
+  source = "terraform-aws-modules/alb/aws"
 
-  name                       = "${local.resource_name}-web-alb"
+  internal                   = false
+  name                       = "${local.resource_name}-web-alb" #expense-dev-web-alb
   vpc_id                     = local.vpc_id
   subnets                    = local.public_subnet_ids
-  create_security_group      = false # default sg false
   security_groups            = [data.aws_ssm_parameter.web_alb_sg_id.value]
+  create_security_group      = false
   enable_deletion_protection = false
-
   tags = merge(
     var.common_tags,
     var.web_alb_tags
   )
 }
-
-# **************Listener**************
 
 resource "aws_lb_listener" "http" {
   load_balancer_arn = module.web_alb.arn
@@ -27,7 +24,7 @@ resource "aws_lb_listener" "http" {
 
     fixed_response {
       content_type = "text/html"
-      message_body = "<h1>Welcome! I'm from the Web ALB HTTP</h1>"
+      message_body = "<h1>Hello, I am from web ALB</h1>"
       status_code  = "200"
     }
   }
@@ -45,37 +42,20 @@ resource "aws_lb_listener" "https" {
 
     fixed_response {
       content_type = "text/html"
-      message_body = "<h1>Welcome! I'm from the Web ALB HTTPS</h1>"
+      message_body = "<h1>Hello, I am from Web ALB HTTPS</h1>"
       status_code  = "200"
     }
   }
 }
 
-# Route 53 record for Web_alb
-# module "route53_records" {
-#   source    = "terraform-aws-modules/route53/aws//modules/records"
-#   version   = "~> 2.0" # or a specific version
-#   zone_name = var.zone_name
-#   records = [
-#     {
-#       name            = "expense-${var.environment}" # expense-dev.inspiredevops.online
-#       type            = "CNAME"
-#       ttl             = 1
-#       records         = [tostring(module.web_alb.dns_name)]
-#       zone_id         = [tostring(module.web_alb.zone_id)]
-#       allow_overwrite = true
-#     },
-#   ]
-# }
-
 
 module "records" {
-  source    = "terraform-aws-modules/route53/aws//modules/records"
-  version   = "~> 2.0"
-  zone_name = var.zone_name #daws81s.online
+  source = "terraform-aws-modules/route53/aws//modules/records"
+
+  zone_name = var.zone_name #inspiredevops.online
   records = [
     {
-      name = "expense-${var.environment}" # *.app-dev
+      name = "expense-${var.environment}" # *.web-dev
       type = "A"
       alias = {
         name    = module.web_alb.dns_name

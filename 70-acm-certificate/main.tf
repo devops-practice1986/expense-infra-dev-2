@@ -9,7 +9,7 @@ resource "aws_acm_certificate" "expense" {
       Component = local.resource_name 
     }
   )
-  
+ 
 }
 
 # then create a record in route53 

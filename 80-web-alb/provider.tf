@@ -7,7 +7,7 @@ terraform {
   }
   backend "s3" {
     bucket         = "yellow-remote-123"
-    key            = "expens-app-alb"
+    key            = "expens-web-alb"
     region         = "us-east-1"
     dynamodb_table = "yellow-locking-123"
 
